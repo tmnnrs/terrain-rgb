@@ -44,4 +44,4 @@ rio rgbify -b -119.8 -i 0.05 --max-z 9 --min-z 5 --format png terrain50.tif terr
 
 <br>
 
-[MBUtil](https://github.com/mapbox/mbutil) can subsequently be used to export mbtiles file to a directory of (PNG) files.
+[MBUtil](https://github.com/mapbox/mbutil) can subsequently be used to export the MBTiles output to a directory of (PNG) files.
