@@ -25,7 +25,7 @@ find ~/Documents/Terrain50/zip -name *.zip -exec unzip {} "*.asc" -d ~/Desktop/T
 find ~/Documents/Terrain50/asc -name "*.asc" | sort > terrain50_filelist.txt
 gdalbuildvrt -vrtnodata "-9999" -input_file_list terrain50_filelist.txt terrain50.vrt
 
-# -- Reproject VRT to Web Mercator and output to GeoTIFF
+# -- Reproject VRT to Web Mercator and output as GeoTIFF
 gdalwarp -overwrite -s_srs EPSG:27700 -t_srs EPSG:3857 terrain50.vrt _terrain50.tif
 
 # -- Extract land polygons from OS Open Zoomstack GeoPackage; and use as a mask/cutline to clip DTM
