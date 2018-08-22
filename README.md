@@ -11,7 +11,7 @@ areas. The ASCII Grid data (heighted points with regular 50 metre post spacing) 
 ### Processing
 ```sh
 # -- Extract ASCII grid files to output directory
-find ~/Documents/Terrain50/zip -name *.zip -exec unzip {} "*.asc" -d ~/Documents/Terrain50/asc \;
+find ~/Documents/Terrain50/zip -name "*.zip" -exec unzip {} "*.asc" -d ~/Documents/Terrain50/asc \;
 
 # -- Build VRT (Virtual Dataset) for ASCII grid files
 find ~/Documents/Terrain50/asc -name "*.asc" | sort > terrain50_filelist.txt
