@@ -15,7 +15,7 @@ find ~/Documents/Terrain50/zip -name *.zip -exec unzip {} "*.asc" -d ~/Documents
 
 # -- Build VRT (Virtual Dataset) for ASCII grid files
 find ~/Documents/Terrain50/asc -name "*.asc" | sort > terrain50_filelist.txt
-gdalbuildvrt -vrtnodata "-9999" -input_file_list terrain50_filelist.txt terrain50.vrt
+gdalbuildvrt -vrtnodata -9999 -input_file_list terrain50_filelist.txt terrain50.vrt
 
 # -- Reproject VRT to Web Mercator and output as GeoTIFF
 gdalwarp -s_srs EPSG:27700 -t_srs EPSG:3857 -srcnodata -9999 -dstnodata 0 terrain50.vrt terrain50.tif
