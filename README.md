@@ -11,7 +11,6 @@ areas. The ASCII Grid data (heighted points with regular 50 metre post spacing) 
 
 1) Download/Install GDAL<br>https://www.gdal.org/
 2) Install rio-rgbify<br>https://github.com/mapbox/rio-rgbify
-3) Download OS Open Zoomstack GeoPackage<br>https://www.ordnancesurvey.co.uk/business-and-government/products/os-open-zoomstack.html
 
 <br>
 
@@ -26,12 +25,7 @@ find ~/Documents/Terrain50/asc -name "*.asc" | sort > terrain50_filelist.txt
 gdalbuildvrt -vrtnodata "-9999" -input_file_list terrain50_filelist.txt terrain50.vrt
 
 # -- Reproject VRT to Web Mercator and output as GeoTIFF
-gdalwarp -overwrite -s_srs EPSG:27700 -t_srs EPSG:3857 terrain50.vrt _terrain50.tif
-
-# -- Extract land polygons from OS Open Zoomstack GeoPackage; and use as a mask/cutline to clip DTM
-# -- This overcomes an issue where the tile edges are visible in the hillshade layer
-ogr2ogr -f "ESRI Shapefile" land.shp OSOpen_Zoomstack_GPKG.gpkg -t_srs EPSG:3857 -sql "SELECT * FROM land"
-gdalwarp -cutline land.shp -t_srs EPSG:3857 _terrain50.tif terrain50.tif
+gdalwarp -overwrite -s_srs EPSG:27700 -t_srs EPSG:3857 -srcnodata -9999 -dstnodata 0 terrain50.vrt terrain50.tif
 
 # -- List information about the raster dataset
 # -- Use [-mm] to force computation of the actual min/max values for each band 
