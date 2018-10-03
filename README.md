@@ -21,11 +21,12 @@ gdalbuildvrt -vrtnodata -9999 -input_file_list terrain50_filelist.txt terrain50.
 gdalwarp -s_srs EPSG:27700 -t_srs EPSG:3857 -srcnodata -9999 -dstnodata 0 -co COMPRESS=DEFLATE terrain50.vrt terrain50.tif
 
 # -- List information about the raster dataset
-gdalinfo terrain50.tif
+# -- Use [-mm] to force computation of the actual min/max values for each band 
+gdalinfo -mm terrain50.tif
 
 # -- Encode raster to Terrain-RGB mbtiles
-# -- The base value [-b] should be equal to the STATISTICS_MINIMUM value returned from the gdalinfo command
-rio rgbify -b -23.3 -i 0.05 --max-z 9 --min-z 5 --format png terrain50.tif terrain50.mbtiles
+# -- The base value [-b] should be equal to the computed min value returned from the gdalinfo command
+rio rgbify -b -119.8 -i 0.05 --max-z 9 --min-z 5 --format png terrain50.tif terrain50.mbtiles
 ```
 
 [MBUtil](https://github.com/mapbox/mbutil) can subsequently be used to export the MBTiles output to a directory of (PNG) files.
